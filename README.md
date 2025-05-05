@@ -68,11 +68,70 @@ ESE5160 offered an in-depth learning experience that combined embedded software 
 
 ## 3. Hardware & Software Requirements
 
+### 3.1 Hardware Requirements:
 
+**HRS 01:** A customized PCB board with SAM W25 microcontroller shall be used for this project.
+
+- **Met.** We successfully manufactured and used a customized PCB with the SAMW25 as the core controller.
+
+**HRS 02:** LCD display shall be used for user interface with correct information and the refresh rate of the screen should not be too slow (e.g. 3s), via SPI protocol.
+
+- **Met.** The ST7735 LCD was connected via DMA SPI. Menu navigation and real-time feedback (e.g., fingerprint registration status, cloud messages) are responsive, with refresh times well below **////////need meaure//////** seconds.
+
+**HRS 03:** The rotary encoder shall allow the user to navigate the menu on the LCD and select it, through GPIO pins configured for interrupt-driven input.
+
+- **Met.** The rotary encoder (Adafruit #377) was connected to GPIOs configured with callback. It correctly updates menu selections and registers input events reliably.
+
+**HRS 04:** The fingerprint module shall achieve greater than 95% correctness within 1 second, via a UART interface.
+
+- **Partially Met.** Correctness exceeded 95% in controlled tests, but the recognition time sometimes slightly exceeded 1s depending on UART traffic and Wi-Fi and IMU interference.
+
+**HRS 05:** The IMU shall detect vibrations caused by violent tampering or forced entry attempts, via an I2C interface.
+
+- **Met.** We set a threshold of 300 for the IMU readings—when the difference between consecutive samples exceeded this value, the buzzer was triggered to indicate potential forced entry.
+
+**HRS 06:** The buzzer shall be sounded when specific requirements are met, driven via a PWM-capable GPIO pin.
+
+- **Met.** The buzzer was driven using PWM from a TCC timer (TCC0), and successfully activated when IMU detection was triggered.
+
+### 3.2 Software Requirements:
+
+**SRS 01:** The LCD shall provide a menu for users to initiate fingerprint add or delete operations, and the cloud shall determine whether the request is permitted by responding with an allow or deny decision.
+
+- **Met.** The LCD menu allows the user to select "add" or "delete" fingerprint actions. Upon selection, the system sends a request to the cloud, which prompts a remote allow/deny decision. The fingerprint operation only proceeds if the cloud grants permission. During testing, we observed that under Wi-Fi interference, mqtt_publish could occasionally block, delaying the request. Additionally, the SAMW25 Xplained Pro board showed higher stability and success rate in completing this process compared to the custom PCBA.
+
+**SRS 02:** The fingerprint module shall open the lock after the authorized fingerprint be detected.
+
+- **Met.** When a valid fingerprint is detected, the servo motor is activated to simulate door unlocking by rotating to the open position.
+
+**SRS 03:** The system shall trigger an alarm(buzzer) when IMU detect someone wants to break the lock.
+
+- **Met.** We implemented vibration detection using the IMU. When the difference between consecutive readings exceeds a threshold of 300, the system considers it a tampering event and triggers the buzzer as a local alarm.
+
+**SRS 04:** The system shall send a warning message to cloud when duress fingerprint be detected.
+
+- **Met.** When a duress fingerprint is detected, the cloud will display the warning message in cloud (red display).
+
+**SRS 05:** The system shall allow user to view fingerprint library both via cloud or LCD.
+
+- **Met.** On the LCD, the user can view the total number of fingerprints stored in the fingerprint module. In the cloud interface, users can additionally see both the count and the type of each fingerprint (normal or duress).
+
+**SRS 06:** The system shall allow user to open the lock via the cloud.
+
+- **Met.** Cloud-to-device MQTT messages successfully control the servo motor to simulate door unlocking.
+
+**SRS 07:** The system shall allow user to add or delete fingerprint via the cloud.
+
+- **Met.** When the user selects "add" or "delete" on the LCD, a request is sent to the cloud. The cloud interface displays an allow/deny prompt, and only upon receiving an "allow" response does the system proceed with the corresponding fingerprint operation.
+
+
+**SRS 08:** The system shall lock itself after 5s after open.
+
+- **Met.** Using a smartphone stopwatch, we measured the re-locking delay to be approximately 5 seconds, with a timing error within ±1 second.
 
 ## 4. Project Photos & Screenshots
 
-## Codebase
+## 5. Codebase
 
 - A link to your final embedded C firmware codebases
 - A link to your Node-RED dashboard code
