@@ -1,4 +1,5 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/AlBFWSQg)
+
 # a14g-final-submission
 
     * Team Number: T06
@@ -8,6 +9,8 @@
     * Description of test hardware: ROG Zephyrus G14, HUAWEI 14
 
 ## 1. Video Presentation
+
+[demo_video](https://youtu.be/Jjkh0UjeFrI)
 
 ## 2. Project Summary
 
@@ -124,46 +127,46 @@ ESE5160 offered an in-depth learning experience that combined embedded software 
 
 - **Met.** When the user selects "add" or "delete" on the LCD, a request is sent to the cloud. The cloud interface displays an allow/deny prompt, and only upon receiving an "allow" response does the system proceed with the corresponding fingerprint operation.
 
-
 **SRS 08:** The system shall lock itself after 5s after open.
 
 - **Met.** Using a smartphone stopwatch, we measured the re-locking delay to be approximately 5 seconds, with a timing error within ±1 second.
 
 ## 4. Project Photos & Screenshots
 
-- Final Project
+- Final Project  
 ![front_view.png](images/front_view.png)
 ![inside_view.png](images/inside_view.png)
 
-- PCBA, Top
+- PCBA, Top  
 ![PCBA-TOP](/images/pcb_front_1.png)
 
-- PCBA, Buttom
+- PCBA, Buttom  
 ![PCBA_BUTTOM](/images/pcb_back.png)
 
-- Thermal Camera Image
+- Thermal Camera Image  
 ![thermal_image.jpeg](images/thermal_image.jpeg)
 
-- Altium Board design in 2D view
-
+- Altium Board design in 2D view  
 ![2D](/images/2D.png)
 
-- Altium Board design in 3D view
-
+- Altium Board design in 3D view  
 ![3D](/images/3D.png)
 
-- Node-RED dashboard
+- Node-RED dashboard  
+![dashboard.png](images/dashboard.png)
 
+- Node-RED backend  
+![backend.png](images/backend.png)
 
-- Node-RED backend
-
-
-- Block Diagram
+- Block Diagram  
 ![detailed_diagram.png](images/detailed_diagram.png)
 
 ## 5. Codebase
 
-- A link to your final embedded C firmware codebases
-- A link to your Node-RED dashboard code
-- Links to any other software required for the functionality of your device
+- A link to your final embedded C firmware codebases:
+[firmware_codebases](https://github.com/ese5160/a14g-final-submission-s25-t06-byte-crafter)
 
+- A link to your Node-RED dashboard code:
+[Node-RED_dashboard_code_code](http://104.211.2.174:1880/#flow/mqtt_full_ui_tab)
+
+- Links to any other software required for the functionality of your device: N/A
