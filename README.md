@@ -131,6 +131,33 @@ ESE5160 offered an in-depth learning experience that combined embedded software 
 
 ## 4. Project Photos & Screenshots
 
+- Final Project
+
+
+- PCBA, Top
+
+![PCBA-TOP](/images/pcb_front_1.png)
+
+- PCBA, Buttom
+
+![PCBA_BUTTOM](/images/pcb_back.png)
+
+- Thermal Camera Image
+
+
+- Altium Board design in 2D view
+
+
+- Altium Board design in 3D view
+
+- Node-RED dashboard
+
+
+- Node-RED backend
+
+
+- Block Diagram
+
 ## 5. Codebase
 
 - A link to your final embedded C firmware codebases
