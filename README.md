@@ -38,7 +38,7 @@ The device connects to the internet to support remote door unlocking, allowing u
 
 To aid in understanding the overall structure and flow of the system, a system-level block diagram is included below, illustrating the interactions among the microcontroller, sensors, actuators, and network interface.
 
-//////////////////need block diagram /////////////////
+![detailed_diagram.png](images/detailed_diagram.png)
 
 ### 2.3 Challenges
 
@@ -76,7 +76,7 @@ ESE5160 offered an in-depth learning experience that combined embedded software 
 
 **HRS 02:** LCD display shall be used for user interface with correct information and the refresh rate of the screen should not be too slow (e.g. 3s), via SPI protocol.
 
-- **Met.** The ST7735 LCD was connected via DMA SPI. Menu navigation and real-time feedback (e.g., fingerprint registration status, cloud messages) are responsive, with refresh times well below **////////need meaure//////** seconds.
+- **Met.** The ST7735 LCD was connected via DMA SPI. Menu navigation and real-time feedback (e.g., fingerprint registration status, cloud messages) are responsive, with refresh times well below 1 second.
 
 **HRS 03:** The rotary encoder shall allow the user to navigate the menu on the LCD and select it, through GPIO pins configured for interrupt-driven input.
 
@@ -132,18 +132,17 @@ ESE5160 offered an in-depth learning experience that combined embedded software 
 ## 4. Project Photos & Screenshots
 
 - Final Project
-
+![front_view.png](images/front_view.png)
+![inside_view.png](images/inside_view.png)
 
 - PCBA, Top
-
 ![PCBA-TOP](/images/pcb_front_1.png)
 
 - PCBA, Buttom
-
 ![PCBA_BUTTOM](/images/pcb_back.png)
 
 - Thermal Camera Image
-
+![thermal_image.jpeg](images/thermal_image.jpeg)
 
 - Altium Board design in 2D view
 
@@ -157,6 +156,7 @@ ESE5160 offered an in-depth learning experience that combined embedded software 
 
 
 - Block Diagram
+![detailed_diagram.png](images/detailed_diagram.png)
 
 ## 5. Codebase
 
