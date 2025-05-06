@@ -146,8 +146,11 @@ ESE5160 offered an in-depth learning experience that combined embedded software 
 
 - Altium Board design in 2D view
 
+![2D](/images/2D.png)
 
 - Altium Board design in 3D view
+
+![3D](/images/3D.png)
 
 - Node-RED dashboard
 
