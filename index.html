@@ -88,3 +88,96 @@
     <a href="#4-project-photos--screenshots">Photos</a>
     <a href="#5-codebase">Code</a>
   </nav>
+
+  <div class="container">
+
+    <p><a href="https://classroom.github.com/a/AlBFWSQg" target="_blank">
+      <img src="https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg" alt="Review Assignment Due Date">
+    </a></p>
+
+    <h2 id="title">a14g-final-submission</h2>
+    <ul>
+      <li><strong>Team Number:</strong> T06</li>
+      <li><strong>Team Name:</strong> Byte Crafter</li>
+      <li><strong>Team Members:</strong> Tony Yan & Yue Zhang</li>
+      <li><strong>GitHub Repository:</strong> <a href="https://github.com/ese5160/a14g-final-submission-s25-t06-byte-crafter">ese5160 Byte Crafter Repo</a></li>
+      <li><strong>Hardware:</strong> ROG Zephyrus G14, HUAWEI 14</li>
+    </ul>
+
+    <h2 id="1-video-presentation">1. Video Presentation</h2>
+    <p><a href="https://youtu.be/Jjkh0UjeFrI" target="_blank">Watch demo video</a></p>
+
+    <h2 id="2-project-summary">2. Project Summary</h2>
+    <h3>2.1 Device Description</h3>
+    <p>Our device is a smart fingerprint-based door lock that enhances home security...</p>
+
+    <h3>2.2 Device Functionality</h3>
+    <ul>
+      <li><strong>Authentication and Access Control:</strong> Fingerprint normal/duress + cloud unlock</li>
+      <li><strong>Sensors and Alerts:</strong> IMU + buzzer</li>
+      <li><strong>Actuation:</strong> Servo for locking</li>
+      <li><strong>Interface:</strong> Rotary encoder + LCD</li>
+      <li><strong>Internet Features:</strong> remote cloud commands + fingerprint management</li>
+    </ul>
+    <img src="images/detailed_diagram.png" alt="System Diagram">
+
+    <h3>2.3 Challenges</h3>
+    <p>Hardware shortage, SERCOM/TCC overlap, Wi-Fi UART conflicts, DMA tuning...</p>
+
+    <h3>2.4 Prototype Learning</h3>
+    <p>Validate ASF4 tool support, use separate timers early, DMA UART suggestion...</p>
+
+    <h3>2.5 Next Steps & Takeaways</h3>
+    <p>Duress alert automation, motor upgrade, FreeRTOS task tuning, embedded system insights...</p>
+
+    <h3>2.6 Project Links</h3>
+    <ul>
+      <li><a href="http://104.211.2.174:1880/ui" target="_blank">Node-RED Dashboard</a></li>
+      <li><a href="https://upenn-eselabs.365.altium.com/designs/B32EC626-4B07-497C-86AC-197A1C9E2F79" target="_blank">Altium PCBA View</a></li>
+    </ul>
+
+    <h2 id="3-hardware--software-requirements">3. Hardware & Software Requirements</h2>
+    <h3>3.1 Hardware</h3>
+    <ul>
+      <li><strong>HRS 01:</strong> Custom PCB (✅ Met)</li>
+      <li><strong>HRS 02:</strong> LCD SPI + DMA (✅ Met)</li>
+      <li><strong>HRS 03:</strong> Rotary Encoder Interrupt (✅ Met)</li>
+      <li><strong>HRS 04:</strong> Fingerprint >95% (⚠️ Partially Met)</li>
+      <li><strong>HRS 05:</strong> IMU vibration detection (✅ Met)</li>
+      <li><strong>HRS 06:</strong> Buzzer via PWM (✅ Met)</li>
+    </ul>
+
+    <h3>3.2 Software</h3>
+    <ul>
+      <li><strong>SRS 01–08:</strong> LCD menu, unlock, duress alerts, cloud fingerprint control – ✅ All Met</li>
+    </ul>
+
+    <h2 id="4-project-photos--screenshots">4. Project Photos & Screenshots</h2>
+    <p><strong>Final Project:</strong></p>
+    <img src="images/front_view.png" alt="Front View">
+    <img src="images/inside_view.png" alt="Inside View">
+
+    <p><strong>PCBA Top/Bottom:</strong></p>
+    <img src="images/pcb_front_1.png" alt="PCB Front">
+    <img src="images/pcb_back.png" alt="PCB Back">
+
+    <p><strong>Thermal Camera:</strong></p>
+    <img src="images/thermal_image.jpeg" alt="Thermal">
+
+    <p><strong>Altium Views:</strong></p>
+    <img src="images/2D.png" alt="2D Layout">
+    <img src="images/3D.png" alt="3D Layout">
+
+    <p><strong>Node-RED Interface:</strong></p>
+    <img src="images/dashboard.png" alt="Dashboard">
+    <img src="images/backend.png" alt="Backend Flow">
+
+    <h2 id="5-codebase">5. Codebase</h2>
+    <ul>
+      <li><a href="https://github.com/ese5160/a14g-final-submission-s25-t06-byte-crafter" target="_blank">Firmware Repository</a></li>
+      <li><a href="http://104.211.2.174:1880/#flow/mqtt_full_ui_tab" target="_blank">Node-RED Code</a></li>
+    </ul>
+
+  </div>
+</body>
+</html>
