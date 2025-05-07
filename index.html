@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,6 +51,28 @@
       height: auto;
       margin: 1em 0;
     }
+    pre, code {
+      background-color: #f4f4f4;
+      padding: 0.3em 0.6em;
+      border-radius: 5px;
+      font-size: 0.95em;
+      overflow-x: auto;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 1em;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.5em;
+      text-align: left;
+    }
+    blockquote {
+      border-left: 4px solid #00796b;
+      padding-left: 1em;
+      color: #555;
+    }
   </style>
 </head>
 <body>
@@ -59,38 +80,11 @@
     <h1>Smart Fingerprint Lock System</h1>
     <p>Team T06: Tony Yan & Yue Zhang</p>
   </div>
+
   <nav>
-    <a href="#video">Video</a>
-    <a href="#summary">Summary</a>
-    <a href="#requirements">Requirements</a>
-    <a href="#photos">Photos</a>
-    <a href="#code">Code</a>
+    <a href="#1-video-presentation">Video</a>
+    <a href="#2-project-summary">Summary</a>
+    <a href="#3-hardware--software-requirements">Requirements</a>
+    <a href="#4-project-photos--screenshots">Photos</a>
+    <a href="#5-codebase">Code</a>
   </nav>
-  <div class="container">
-    <h2 id="video">1. Video</h2>
-    <p><a href="https://youtu.be/Jjkh0UjeFrI" target="_blank">Watch the demo video</a></p>
-
-    <h2 id="summary">2. Summary</h2>
-    <p>This system uses a fingerprint sensor with normal and duress modes, integrates IMU, servo motor, buzzer, LCD, rotary encoder, and Wi-Fi communication via SAMW25 MCU.</p>
-
-    <h2 id="requirements">3. Requirements</h2>
-    <ul>
-      <li>✔️ Fingerprint unlock with cloud-controlled add/delete</li>
-      <li>✔️ IMU tamper detection with buzzer alert</li>
-      <li>✔️ Servo motor for lock actuation</li>
-      <li>✔️ Rotary encoder and LCD for user interface</li>
-    </ul>
-
-    <h2 id="photos">4. Project Photos</h2>
-    <img src="images/front_view.png" alt="Front View">
-    <img src="images/pcb_front_1.png" alt="PCBA Top">
-    <img src="images/pcb_back.png" alt="PCBA Bottom">
-
-    <h2 id="code">5. Codebase</h2>
-    <ul>
-      <li><a href="https://github.com/ese5160/a14g-final-submission-s25-t06-byte-crafter" target="_blank">GitHub Repo</a></li>
-      <li><a href="http://104.211.2.174:1880/ui" target="_blank">Node-RED Dashboard</a></li>
-    </ul>
-  </div>
-</body>
-</html>
