@@ -150,62 +150,199 @@ The device connects to the internet to support remote door unlocking, allowing u
 
 
     <h3>2.3 Challenges</h3>
-    <p>Hardware shortage, SERCOM/TCC overlap, Wi-Fi UART conflicts, DMA tuning...</p>
+
+<p>
+  One of our main challenges was hardware-related. Due to manufacturing issues, we ended up with only a single functional customized PCBA, which created both logistical and psychological pressure since our team had two members.
+  Moreover, the SAMW25 chip’s pin assignments conflicted with our PCB layout, so we had to carefully plan our peripheral configurations—reusing the same SERCOM and TCC/TC-compatible pins whenever possible.
+  This allowed us to streamline code portability from the development board to the custom hardware.
+</p>
+
+<p>
+  A more complex challenge emerged during system integration.
+  After completing the individual modules for sensors and actuators, we encountered pin conflicts—specifically, both the buzzer and servo motor were initially assigned to TCC0, but they required different PWM frequencies.
+  Since reinitializing the PWM mid-operation didn’t work reliably, we had to fully reset TCC0 before switching between them.
+  Additionally, although the datasheet showed that pins PA04 and PA05 supported both TCC0 and TCC3, the ASF Start tool did not offer TCC3 as a selectable option, limiting our flexibility.
+</p>
+
+<p>
+  An even deeper issue came from managing multiple communication interfaces: UART, SPI (with DMA), and I2C.
+  While the DMA SPI-based communication with the Wi-Fi module was relatively stable, UART and I2C transmissions were frequently interrupted by Wi-Fi activity—causing missed or corrupted data.
+  Combined with instability in our specific Wi-Fi chip version, this made integration and communication timing especially difficult.
+  We addressed this by carefully tuning task priorities and inserting well-calculated task delays to maintain system responsiveness and data integrity.
+</p>
+
 
     <h3>2.4 Prototype Learning</h3>
-    <p>Validate ASF4 tool support, use separate timers early, DMA UART suggestion...</p>
+<p>
+  Throughout the development of our prototype, we realized the importance of thoroughly verifying hardware peripheral support—not just from the datasheet, but also from the actual development tools and software libraries.
+  Early in the project, we assigned both the buzzer and servo motor to TCC0, thinking we could later move one to TCC3 based on the datasheet’s claim that PA04 and PA05 support TCC3.
+  However, we later discovered that TCC3 wasn't actually supported in the ASF4 configuration tools, which forced us to manage both PWM outputs under TCC0.
+  This made the code more complex, as switching between the two required a full reset of the timer.
+  In hindsight, using two distinct timers from the start (e.g., TCC0 and TC3) would have significantly simplified our implementation.
+</p>
 
-    <h3>2.5 Next Steps & Takeaways</h3>
-    <p>Duress alert automation, motor upgrade, FreeRTOS task tuning, embedded system insights...</p>
+<p>
+  If we were to build this device again, we would explore using DMA-based UART communication instead of interrupt-driven or polling-based methods.
+  Since UART transmissions were frequently interrupted by Wi-Fi activity, using DMA could offload the CPU, reduce latency, and improve communication reliability during periods of high system activity.
+  These changes would simplify code structure, improve system robustness, and make integration more efficient.
+</p>
 
-    <h3>2.6 Project Links</h3>
-    <ul>
-      <li><a href="http://104.211.2.174:1880/ui" target="_blank">Node-RED Dashboard</a></li>
-      <li><a href="https://upenn-eselabs.365.altium.com/designs/B32EC626-4B07-497C-86AC-197A1C9E2F79" target="_blank">Altium PCBA View</a></li>
-    </ul>
+<h3>2.5 Next Steps & Takeaways</h3>
+<p>
+  There are two main areas for future improvement.
+  First, while the current implementation displays a warning message in the cloud when a duress fingerprint is used,
+  a more advanced version could trigger automatic emergency responses—such as notifying pre-assigned contacts or even calling for help.
+  Second, the current prototype uses a servo motor to simulate the lock mechanism; to deploy this system in real-world environments,
+  the mechanism could be upgraded to control an actual door lock, which would require mechanical redesign and integration with commercial lock hardware.
+</p>
+
+<p>
+  ESE5160 offered an in-depth learning experience that combined embedded software development with hardware design and system integration.
+  Through the lectures, we gained practical skills in FreeRTOS-based real-time programming, including task creation, priority management, and inter-task synchronization using semaphores and mutexes.
+  These concepts were reinforced through lab assignments and ultimately applied in our final project.
+  We also learned how to work with complex communication stacks like UART, I2C, and SPI alongside Wi-Fi,
+  gaining insight into how real-world systems must balance concurrency and timing.
+  Additionally, the course introduced us to PCB design using Altium Designer,
+  where we created schematics, laid out custom PCBA, and generated manufacturing-ready files.
+  This hands-on experience bridged the gap between theory and practice and prepared us for real-world embedded system development.
+</p>
+
+<h3>2.6 Project Links</h3>
+<ul>
+  <li><a href="http://104.211.2.174:1880/ui" target="_blank">Node-RED Dashboard</a></li>
+  <li><a href="https://upenn-eselabs.365.altium.com/designs/B32EC626-4B07-497C-86AC-197A1C9E2F79" target="_blank">Altium PCBA View</a></li>
+</ul>
+
 
     <h2 id="3-hardware--software-requirements">3. Hardware & Software Requirements</h2>
-    <h3>3.1 Hardware</h3>
-    <ul>
-      <li><strong>HRS 01:</strong> Custom PCB (✅ Met)</li>
-      <li><strong>HRS 02:</strong> LCD SPI + DMA (✅ Met)</li>
-      <li><strong>HRS 03:</strong> Rotary Encoder Interrupt (✅ Met)</li>
-      <li><strong>HRS 04:</strong> Fingerprint >95% (⚠️ Partially Met)</li>
-      <li><strong>HRS 05:</strong> IMU vibration detection (✅ Met)</li>
-      <li><strong>HRS 06:</strong> Buzzer via PWM (✅ Met)</li>
-    </ul>
 
-    <h3>3.2 Software</h3>
-    <ul>
-      <li><strong>SRS 01–08:</strong> LCD menu, unlock, duress alerts, cloud fingerprint control – ✅ All Met</li>
-    </ul>
+<h3>3.1 Hardware Requirements</h3>
+
+<p><strong>HRS 01:</strong> A customized PCB board with SAM W25 microcontroller shall be used for this project.</p>
+<ul>
+  <li><strong>Met.</strong> We successfully manufactured and used a customized PCB with the SAMW25 as the core controller.</li>
+</ul>
+
+<p><strong>HRS 02:</strong> LCD display shall be used for user interface with correct information and the refresh rate of the screen should not be too slow (e.g. 3s), via SPI protocol.</p>
+<ul>
+  <li><strong>Met.</strong> The ST7735 LCD was connected via DMA SPI. Menu navigation and real-time feedback (e.g., fingerprint registration status, cloud messages) are responsive, with refresh times well below 1 second.</li>
+</ul>
+
+<p><strong>HRS 03:</strong> The rotary encoder shall allow the user to navigate the menu on the LCD and select it, through GPIO pins configured for interrupt-driven input.</p>
+<ul>
+  <li><strong>Met.</strong> The rotary encoder (Adafruit #377) was connected to GPIOs configured with callback. It correctly updates menu selections and registers input events reliably.</li>
+</ul>
+
+<p><strong>HRS 04:</strong> The fingerprint module shall achieve greater than 95% correctness within 1 second, via a UART interface.</p>
+<ul>
+  <li><strong>Partially Met.</strong> Correctness exceeded 95% in controlled tests, but the recognition time sometimes slightly exceeded 1s depending on UART traffic and Wi-Fi and IMU interference.</li>
+</ul>
+
+<p><strong>HRS 05:</strong> The IMU shall detect vibrations caused by violent tampering or forced entry attempts, via an I2C interface.</p>
+<ul>
+  <li><strong>Met.</strong> We set a threshold of 300 for the IMU readings—when the difference between consecutive samples exceeded this value, the buzzer was triggered to indicate potential forced entry.</li>
+</ul>
+
+<p><strong>HRS 06:</strong> The buzzer shall be sounded when specific requirements are met, driven via a PWM-capable GPIO pin.</p>
+<ul>
+  <li><strong>Met.</strong> The buzzer was driven using PWM from a TCC timer (TCC0), and successfully activated when IMU detection was triggered.</li>
+</ul>
+
+<h3>3.2 Software Requirements</h3>
+
+<p><strong>SRS 01:</strong> The LCD shall provide a menu for users to initiate fingerprint add or delete operations, and the cloud shall determine whether the request is permitted by responding with an allow or deny decision.</p>
+<ul>
+  <li><strong>Met.</strong> Cloud verification and UI flow were validated. Delay may occur under Wi-Fi interference, but functions correctly.</li>
+</ul>
+
+<p><strong>SRS 02:</strong> The fingerprint module shall open the lock after the authorized fingerprint be detected.</p>
+<ul>
+  <li><strong>Met.</strong> The servo motor rotates to unlock after a valid fingerprint match.</li>
+</ul>
+
+<p><strong>SRS 03:</strong> The system shall trigger an alarm (buzzer) when IMU detects someone trying to break the lock.</p>
+<ul>
+  <li><strong>Met.</strong> IMU vibration threshold reliably activates buzzer within detection range.</li>
+</ul>
+
+<p><strong>SRS 04:</strong> The system shall send a warning message to the cloud when a duress fingerprint is detected.</p>
+<ul>
+  <li><strong>Met.</strong> Cloud UI shows red alert and logs duress access events.</li>
+</ul>
+
+<p><strong>SRS 05:</strong> The system shall allow users to view fingerprint library both via cloud and LCD.</p>
+<ul>
+  <li><strong>Met.</strong> LCD displays fingerprint count; cloud UI includes type and total info.</li>
+</ul>
+
+<p><strong>SRS 06:</strong> The system shall allow users to open the lock via the cloud.</p>
+<ul>
+  <li><strong>Met.</strong> Cloud MQTT message triggers servo unlock sequence.</li>
+</ul>
+
+<p><strong>SRS 07:</strong> The system shall allow users to add or delete fingerprints via the cloud.</p>
+<ul>
+  <li><strong>Met.</strong> Cloud decision gating ensures only authorized requests are accepted and processed.</li>
+</ul>
+
+<p><strong>SRS 08:</strong> The system shall lock itself automatically 5 seconds after unlocking.</p>
+<ul>
+  <li><strong>Met.</strong> Auto-lock tested; ±1 second timing accuracy confirmed.</li>
+</ul>
+
 
     <h2 id="4-project-photos--screenshots">4. Project Photos & Screenshots</h2>
-    <p><strong>Final Project:</strong></p>
-    <img src="images/front_view.png" alt="Front View">
-    <img src="images/inside_view.png" alt="Inside View">
 
-    <p><strong>PCBA Top/Bottom:</strong></p>
-    <img src="images/pcb_front_1.png" alt="PCB Front">
-    <img src="images/pcb_back.png" alt="PCB Back">
+<h3>Final Project</h3>
+<img src="images/front_view.png" alt="Front View">
+<img src="images/inside_view.png" alt="Inside View">
 
-    <p><strong>Thermal Camera:</strong></p>
-    <img src="images/thermal_image.jpeg" alt="Thermal">
+<h3>PCBA</h3>
+<p><strong>Top View:</strong></p>
+<img src="images/pcb_front_1.png" alt="PCBA Top">
+<p><strong>Bottom View:</strong></p>
+<img src="images/pcb_back.png" alt="PCBA Bottom">
 
-    <p><strong>Altium Views:</strong></p>
-    <img src="images/2D.png" alt="2D Layout">
-    <img src="images/3D.png" alt="3D Layout">
+<h3>Thermal Camera Image</h3>
+<img src="images/thermal_image.jpeg" alt="Thermal Image">
 
-    <p><strong>Node-RED Interface:</strong></p>
-    <img src="images/dashboard.png" alt="Dashboard">
-    <img src="images/backend.png" alt="Backend Flow">
+<h3>Altium Board Design</h3>
+<p><strong>2D View:</strong></p>
+<img src="images/2D.png" alt="Altium 2D View">
+<p><strong>3D View:</strong></p>
+<img src="images/3D.png" alt="Altium 3D View">
+
+<h3>Node-RED Dashboard</h3>
+<p><strong>UI Interface:</strong></p>
+<img src="images/dashboard.png" alt="Node-RED Dashboard UI">
+<p><strong>Backend Flow:</strong></p>
+<img src="images/backend.png" alt="Node-RED Backend Flow">
+
+<h3>System Block Diagram</h3>
+<img src="images/detailed_diagram.png" alt="System Block Diagram">
 
     <h2 id="5-codebase">5. Codebase</h2>
-    <ul>
-      <li><a href="https://github.com/ese5160/a14g-final-submission-s25-t06-byte-crafter" target="_blank">Firmware Repository</a></li>
-      <li><a href="http://104.211.2.174:1880/#flow/mqtt_full_ui_tab" target="_blank">Node-RED Code</a></li>
-    </ul>
 
+<ul>
+  <li>
+    📦 <strong>Final Embedded C Firmware:</strong><br>
+    <a href="https://github.com/ese5160/a14g-final-submission-s25-t06-byte-crafter" target="_blank">
+      https://github.com/ese5160/a14g-final-submission-s25-t06-byte-crafter
+    </a>
+  </li>
+
+  <li>
+    🧠 <strong>Node-RED Dashboard Code:</strong><br>
+    <a href="http://104.211.2.174:1880/#flow/mqtt_full_ui_tab" target="_blank">
+      http://104.211.2.174:1880/#flow/mqtt_full_ui_tab
+    </a>
+  </li>
+
+  <li>
+    💻 <strong>Other Software Dependencies:</strong><br>
+    N/A
+  </li>
+</ul>
   </div>
 </body>
 </html>
