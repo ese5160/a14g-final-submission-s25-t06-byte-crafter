@@ -109,17 +109,45 @@
 
     <h2 id="2-project-summary">2. Project Summary</h2>
     <h3>2.1 Device Description</h3>
-    <p>Our device is a smart fingerprint-based door lock that enhances home security...</p>
-
+  <p>
+  Our device is a smart fingerprint-based door lock that enhances home security using both local authentication and cloud-based controls.
+  </p>
+  <p>
+  We were inspired by the need for smarter and safer access control, especially in situations where traditional locks are vulnerable to tailgating, coercion, or physical tampering.
+  Our device addresses this by using fingerprint-based authentication, with each user registering both a normal and a duress fingerprint—the latter silently triggers an emergency alert in the cloud.
+  Internet connectivity augments the system with remote unlock and fingerprint management functionality, while a built-in IMU detects tampering attempts and triggers a local alarm for immediate response.
+  </p>
+    
     <h3>2.2 Device Functionality</h3>
-    <ul>
-      <li><strong>Authentication and Access Control:</strong> Fingerprint normal/duress + cloud unlock</li>
-      <li><strong>Sensors and Alerts:</strong> IMU + buzzer</li>
-      <li><strong>Actuation:</strong> Servo for locking</li>
-      <li><strong>Interface:</strong> Rotary encoder + LCD</li>
-      <li><strong>Internet Features:</strong> remote cloud commands + fingerprint management</li>
-    </ul>
-    <img src="images/detailed_diagram.png" alt="System Diagram">
+
+<p>
+  The core of our internet-connected smart lock system is built around the SAMW25 microcontroller, which integrates Wi-Fi connectivity and manages interactions between local components and the cloud. This device combines biometric authentication, real-time security feedback, and remote access capabilities to deliver both convenience and safety.
+</p>
+
+<p><strong>Authentication and Access Control:</strong><br>
+The system uses a <strong>fingerprint module</strong> to distinguish between normal and duress fingerprints. A normal fingerprint grants access and actuates the lock, while a duress fingerprint silently triggers an emergency alert in the cloud. Access can also be controlled remotely through cloud-issued unlock command.
+</p>
+
+<p><strong>Sensors and Alerts:</strong><br>
+An onboard <strong>IMU</strong> monitors for vibrations or forced movements of the lock. If tampering is detected—such as an attempt to pry open the device—a local <strong>buzzer</strong> is activated to alert nearby occupants.
+</p>
+
+<p><strong>Actuators and Mechanism:</strong><br>
+The locking mechanism is simulated using a <strong>servo motor</strong> to represent door opening and closing. This allows for reliable and observable movement in our prototype without requiring a physical lock pin.
+</p>
+
+<p><strong>User Interface:</strong><br>
+A <strong>rotary encoder</strong> and <strong>LCD</strong> screen form the local interface. Users can navigate menus to view, register or delete fingerprints. All add/delete actions must be approved by the cloud to prevent unauthorized changes.
+</p>
+
+<p><strong>Internet-Enhanced Features:</strong><br>
+The device connects to the internet to support remote door unlocking, allowing users to control access even when they are not physically present.
+</p>
+
+<p>To aid in understanding the overall structure and flow of the system, a system-level block diagram is included below, illustrating the interactions among the microcontroller, sensors, actuators, and network interface.</p>
+
+<img src="images/detailed_diagram.png" alt="System Diagram">
+
 
     <h3>2.3 Challenges</h3>
     <p>Hardware shortage, SERCOM/TCC overlap, Wi-Fi UART conflicts, DMA tuning...</p>
