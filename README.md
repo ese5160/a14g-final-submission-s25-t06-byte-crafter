@@ -140,19 +140,19 @@ ESE5160 offered an in-depth learning experience that combined embedded software 
 ![inside_view.png](images/inside_view.png)
 
 - PCBA, Top  
-![PCBA-TOP](/images/pcb_front_1.png)
+![PCBA-TOP](images/pcb_front_1.png)
 
 - PCBA, Buttom  
-![PCBA_BUTTOM](/images/pcb_back.png)
+![PCBA_BUTTOM](images/pcb_back.png)
 
 - Thermal Camera Image  
 ![thermal_image.jpeg](images/thermal_image.jpeg)
 
 - Altium Board design in 2D view  
-![2D](/images/2D.png)
+![2D](images/2D.png)
 
 - Altium Board design in 3D view  
-![3D](/images/3D.png)
+![3D](images/3D.png)
 
 - Node-RED dashboard  
 ![dashboard.png](images/dashboard.png)
@@ -162,6 +162,9 @@ ESE5160 offered an in-depth learning experience that combined embedded software 
 
 - Block Diagram  
 ![detailed_diagram.png](images/detailed_diagram.png)
+
+- Team Award  
+![award.JPG](images/award.JPG)  
 
 ## 5. Codebase
 
