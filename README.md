@@ -8,6 +8,8 @@
     * Github Repository URL: https://github.com/ese5160/a14g-final-submission-s25-t06-byte-crafter
     * Description of test hardware: ROG Zephyrus G14, HUAWEI 14
 
+## Our project webpage link is: [SSAS_public_webpage](https://ese5160.github.io/a14g-final-submission-s25-t06-byte-crafter/)
+
 ## 1. Video Presentation
 
 [demo_video](https://youtu.be/Jjkh0UjeFrI)
@@ -164,7 +166,7 @@ ESE5160 offered an in-depth learning experience that combined embedded software 
 ## 5. Codebase
 
 - A link to your final embedded C firmware codebases:
-[firmware_codebases](https://github.com/ese5160/a14g-final-submission-s25-t06-byte-crafter)
+[firmware_codebases](https://github.com/ese5160/final-project-t06-byte-crafter)
 
 - A link to your Node-RED dashboard code:
 [Node-RED_dashboard_code_code](http://104.211.2.174:1880/#flow/mqtt_full_ui_tab)
